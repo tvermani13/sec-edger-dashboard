@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SEC EDGAR Financial Dashboard</title>
+    <style>
+      body { margin: 0; background: #060b18; }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module">
+      // #region agent log
+      Promise.all([
+        fetch('/src/main.jsx', { method: 'HEAD' }).then((r) => ({ ok: r.ok, status: r.status })).catch((e) => ({ ok: false, error: String(e) })),
+        fetch('/main.jsx', { method: 'HEAD' }).then((r) => ({ ok: r.ok, status: r.status })).catch((e) => ({ ok: false, error: String(e) })),
+      ]).then(([srcMain, rootMain]) => {
+        fetch('http://127.0.0.1:7758/ingest/dff2758a-b1d2-428f-a27f-04ce51528936',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'771056'},body:JSON.stringify({sessionId:'771056',runId:'initial',hypothesisId:'H1-H4',location:'index.html:inline',message:'Entry path probes',data:{scriptSrc:'/src/main.jsx',srcMain,rootMain,pathname:window.location.pathname},timestamp:Date.now()})}).catch(()=>{});
+      });
+      // #endregion
+    </script>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
